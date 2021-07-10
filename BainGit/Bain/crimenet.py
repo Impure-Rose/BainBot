@@ -42,12 +42,10 @@ for q in range (len(throw),len(secondary)-1):
     
     a+=1
 for w in range (len(secondary), len(melee)):
-    badBuild.write(primary[a][6:][:-8]+', '+ melee[a][6:][:-8]+','+'\n')
+    badBuild.write(primary[a][6:][:-8]+', ,'+ melee[a][6:][:-8]+','+'\n')
     a+=1
 for x in range(len(melee), len(primary)):
     badBuild.write(primary[a][6:][:-8]+', , ,'+'\n')
     a+=1
 
 badBuild.close()
-   
-

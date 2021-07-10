@@ -13,11 +13,16 @@ with open('Payday Decider Spreadsheet.csv', newline='') as csvfile:
 with open('The Heist Decider.csv', newline='')as spread:
         options=csv.reader(spread)
         contracts=[r for r in options]
-
+with open('One Down Heists.csv', newline='') as OhNo:
+        Zeal=csv.reader(OhNo)
+        oneDown=[r for r in Zeal]
 with open('PD2Weapons.csv') as builds:
         fnet=csv.reader(builds)
         generator=[r for r in fnet]
-
+with open('GamesinCommon.csv')as indecicive:
+        ops=csv.reader(indecicive)
+        sel=[r for r in ops]
+        
 youtube_dl.utils.bug_reports_message = lambda: ''
 ytdl_format_options = {
     'format': 'bestaudio/best',
@@ -88,13 +93,13 @@ async def contract(ctx):
 @client.command(aliases=['gage','asspack'])
 async def build(ctx):
 
-    primaryNumb=random.randrange(114)
-    secondaryNumb=random.randrange(62)
+    primaryNumb=random.randrange(125)
+    secondaryNumb=random.randrange(66)
     perkNumb=random.randrange(1,22) 
     deployNumb=random.randrange(1,8)
     heisterNumb=random.randrange(1,23)
-    meleeNumb=random.randrange(85)
-    throwableNumb=random.randrange(16)
+    meleeNumb=random.randrange(88)
+    throwableNumb=random.randrange(17)
     armorNumb=random.randrange(1,8)
     primary=generator[primaryNumb]
     secondary=generator[secondaryNumb]
@@ -118,15 +123,27 @@ async def buildsm(ctx):
     perk=rows[perkNumb]
     await ctx.send("Primary: "+primary[0] + ", Secondary: "+secondary[1]+", Perk Deck: "+perk[3] )
 
+@client.command()
+async def DSOD(ctx):
+    selection=random.randrange(74-1)
+    ODChoice=oneDown[selection]
+    if(int(ODChoice[7])!=2):
+        await ctx.send(ODChoice)
+    else:
+        print("Re Roll")
+        DSOD(ctx)
 
-
+@client.command()
+async def game(ctx):
+    game=random.randrange(0,6)
+    choice=sel[game]
+    await ctx.send(choice[0])
     
 @client.command()
 async def info(ctx):
     await ctx.send("Commands:\n !heist-Picks a heist in Payday2\n !contract- picks a heist in Payday The Heist\n !build- generates a build for Payday 2\n !buildsm- generates a smaller build\n !bye- disconnects from VC\n !meme- connect to VC\n !pd2 +Song_Name- Plays a song from Payday\n !stream + link- streams audio from a link")
     await ctx.send("Memes:\n !orange, !ineed, !gogetit, !pickle, !pizzatime")
 
-#Currently in development 
 class Cook_Off(commands.Cog):
 
     def __init__(self,client):
@@ -262,4 +279,3 @@ async def stream(self, ctx, url):
 
 client.add_cog(AudioPlayer(client))
 client.add_cog(Cook_Off(client))
-
